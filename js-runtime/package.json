@@ -1,5 +1,15 @@
 {
-  "dependencies": {
-    "antlr4": "^4.9.1"
-  }
+    "name": "js-runtime",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "compile": "java -jar antlr.jar -Dlanguage=JavaScript -visitor grammar/Python.g4"
+    },
+    "dependencies": {
+        "antlr4": "^4.9.1"
+    },
+    "author": "",
+    "license": "ISC"
 }
