@@ -4,7 +4,7 @@ const PythonParser = require("./grammar/PythonParser.js");
 const PythonListener = require("./grammar/PythonListener.js");
 const PythonVisitor = require("./grammar/PythonVisitor.js");
 
-const input = "1 + 2\n";
+const input = '1 + 2\n';
 
 const chars = new antlr4.InputStream(input);
 const lexer = new PythonLexer(chars);
@@ -15,7 +15,7 @@ const tokens = new antlr4.CommonTokenStream(lexer);
 const parser = new PythonParser(tokens);
 
 parser.buildParseTrees = true;
-var tree = parser.prog();
+var tree = parser.expression();
 
 class P extends PythonListener {
     // override default listener behavior
@@ -109,8 +109,9 @@ class P extends PythonListener {
     }
 }
 var visitor = new PythonVisitor();
-var listener = new P();
+// var listener = new P();
 console.log("Visitor:");
-console.log(tree.accept(visitor));
-console.log("Listener:");
-console.log(antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree));
+// console.log(tree.accept(visitor));
+console.log(visitor.visitStart(tree));
+// console.log("Listener:");
+// console.log(antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree));

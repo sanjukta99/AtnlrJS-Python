@@ -1,27 +1,27 @@
 grammar Python;
 
-prog : stat+;
+/*
+ * Tokens (terminal)
+ */
+POW: '^';
+MUL: '*';
+DIV: '/';
+ADD: '+';
+SUB: '-';
+NUMBER: [0-9]+;
+WHITESPACE: [ \r\n\t]+ -> skip;
 
-stat:
-  expr NEWLINE          # print
-  | ID '=' expr NEWLINE   # assign
-  | NEWLINE               # blank
-  ;
+/*
+ * Productions
+ */
+start : expression;
 
-expr:
-  expr op=('*'|'/') expr    # MulDiv
-  | expr op=('+'|'-') expr        # AddSub
-  | INT                           # int
-  | ID                            # id
-  | '(' expr ')'                  # parenthese
-  ;
-
-MUL : '*' ;
-DIV : '/' ;
-ADD : '+' ;
-SUB : '-' ;
-ID : [a-zA-Z]+ ;
-INT : [0-9]+ ;
-NEWLINE :'\r'? '\n' ;
-DELIMITER : ';';
-WS : [ \t]+ -> skip;
+expression
+   : NUMBER                                         # Number
+   | '(' inner=expression ')'                       # Parentheses
+   | left=expression operator=POW right=expression  # Power
+   | left=expression operator=MUL right=expression  # Multiplication
+   | left=expression operator=DIV right=expression  # Division
+   | left=expression operator=ADD right=expression  # Addition
+   | left=expression operator=SUB right=expression  # Subtraction
+   ;
