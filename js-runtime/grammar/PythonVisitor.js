@@ -7,7 +7,6 @@ const antlr4 = require("antlr4");
 class PythonVisitor extends antlr4.tree.ParseTreeVisitor {
     // Visit a parse tree produced by PythonParser#prog.
     visitProg(ctx) {
-        console.log("visitProg");
         return this.visitChildren(ctx);
     }
 
